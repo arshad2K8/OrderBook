@@ -1,0 +1,8 @@
+app:
+  info:
+    name: OrderBook
+    description: OrderBook
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
