@@ -6,7 +6,9 @@ import com.code.orderbook.service.OrderBookImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderBookImplTest {
 
@@ -77,13 +79,11 @@ public class OrderBookImplTest {
         orderBook.addOrder(order3);
         orderBook.addOrder(order4);
         orderBook.addOrder(order5);
-        List<Order> orders = orderBook.getAllOrdersForSide('B');
+        List<Order> orders = orderBook.getAllOrdersForSide('O');
 
-        Assertions.assertEquals(2, orders.get(0).getOrderId());
-        Assertions.assertEquals(4, orders.get(1).getOrderId());
-        Assertions.assertEquals(5, orders.get(2).getOrderId());
-        Assertions.assertEquals(1, orders.get(3).getOrderId());
-        Assertions.assertEquals(3, orders.get(4).getOrderId());
+        Assertions.assertIterableEquals(Arrays.asList(3L, 1L, 4L, 5L, 2L),
+                orders.stream().map(Order::getOrderId)
+                        .collect(Collectors.toList()));
     }
 
     private void initBuySideOrders(OrderBook orderBook) {
